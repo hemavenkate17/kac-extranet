@@ -1,0 +1,69 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Display_Record</title>
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <style>
+        .tableData {
+            border-left: solid 1px #D8C3C3;
+            border-top: solid 1px #D8C3C3;
+        }
+
+            .tableData tr {
+                border-right: solid 1px #D8C3C3;
+                border-bottom: solid 1px #D8C3C3;
+                text-align: left;
+                padding: 5px;
+            }
+
+            .tableData th {
+                background-color: #FAFAFA;
+                padding: 7px 5px;
+                border-bottom-color: #9C9C9C;
+            }
+    </style>
+</head>
+
+<body>
+    <div> 
+        <table class="tableData" id="tbldata" border="1">
+            <tr>
+                <th>StudentID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Address</th>
+                <th>PhoneNumber</th>
+                <th>Date of birth</th>
+                <th>Actions</th>
+
+            </tr>
+        </table>
+    </div>
+    <script>
+        $(function () {
+            $.get("/Student/Get_Data", {}, function (data) {
+              
+                var row;
+                $.each(data, function (i, v) {
+                    // var date = new Date(v.DOB);
+                    //var nowDate = new Date(parseInt((v.DOB).substr(6)));
+                    //var result = nowDate.toLocaleDateString();
+                    //var nowDate = new Date(parseInt(date.substr(6)));
+                    //var result = "";
+
+
+                    row += "<tr><td>" + v.ID + "</td><td>" + v.Name + "</td><td>" + v.Age + "</td><td>" + v.Address + "</td><td>" + v.PhoneNumber + "</td><td>" + v.strDOB + "</td><td><a href='Update_Record?id=" + v.ID + "'>Update</a></td><td><a href='Delete_Record?id=" + v.ID + "'>Delete</a></td></tr>";
+                });
+                $("#tbldata").append(row);
+            })
+        })
+    </script>
+</body>
+</html>

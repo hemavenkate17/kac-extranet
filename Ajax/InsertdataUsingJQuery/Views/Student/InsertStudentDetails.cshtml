@@ -1,0 +1,86 @@
+﻿@model InsertdataUsingJQuery.Models.StudentModel
+@{
+    ViewBag.Title = "InsertStudentDetails";
+}
+
+
+
+<h1>Insert Student Details</h1>
+<br />
+<br />
+<br />
+<br />
+
+<body style="font-family: Arial">
+    <table border="1" style="border-collapse:collapse" class="center" cellpadding="80">
+        <tr>
+            <td>Name</td>
+            <td>
+                <input type="text" name="Name" id="Name" />
+            </td>
+        </tr>
+        <tr>
+            <td>Age</td>
+            <td>
+                <input type="number" name="Age" id="Age" />
+            </td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td>
+                <input type="text" name="Address" id="Address" />
+            </td>
+        </tr>
+        <tr>
+            <td>PhoneNumber</td>
+            <td>
+                <input type="number" name="PhoneNumber" id="PhoneNo" />
+            </td>
+        </tr>
+        <tr>
+            <td>Date of birth</td>
+            <td>
+                <input type="date" name="Date" id="DOB" />
+            </td>
+        </tr>
+    </table>
+    <br />
+    <br />
+    <div>
+        <input type="button" value="submit" id="btnSubmit" class="btn-primary" />
+    </div>
+
+</body>
+
+<div>
+    @Html.ActionLink("Display Student Details", "DisplayStudentDetails")
+</div>
+
+
+
+
+<script src="~/Scripts/jquery-1.9.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#btnSubmit").click(function () {
+            //  $("#DOB").datepicker();
+            //var data = $("#MyForm").serialize();
+            var obj = {
+                Name: $("#Name").val(),
+                Age: $("#Age").val(),
+                Address: $("#Address").val(),
+                PhoneNumber: $("#PhoneNo").val(),
+                DOB: $("#DOB").val(),
+            };
+            $.ajax({
+
+                type: "POST",
+                url: "/Student/InsertStudentDetails",
+                data: obj,
+                success: function (response) {
+                    alert("your details are added Successfully");
+                }
+            })
+        })
+    })
+</script>

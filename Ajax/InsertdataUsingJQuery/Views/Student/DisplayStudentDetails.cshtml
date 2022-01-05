@@ -1,0 +1,96 @@
+﻿@model IEnumerable<InsertdataUsingJQuery.Models.StudentModel>
+
+@{
+    ViewBag.Title = "DisplayStudentDetails";
+}
+
+<h2>DisplayStudentDetails</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table" id="tbl">
+    <tr>
+        <th id="Name">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th id="Age">
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th id="Address">
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th id="PhoneNo">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th id="DOB">
+            @Html.DisplayNameFor(model => model.DOB)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tbody>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Age)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DOB)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+        </td>
+    </tr>
+</tbody>
+    }
+
+</table>
+
+<script src="~/Scripts/jquery-1.9.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#btnSubmit").click(function () {
+            //  $("#DOB").datepicker();
+            //var data = $("#MyForm").serialize();
+            var obj = {
+                Name: $("#Name").val(),
+                Age: $("#Age").val(),
+                Address: $("#Address").val(),
+                PhoneNumber: $("#PhoneNo").val(),
+                DOB: $("#DOB").val(),
+            };
+            $.ajax({
+
+                type: "POST",
+                url: "/Student/DisplayStudentDetails",
+                data: obj,
+                success: function (resp) {
+                    if (resp.msg == "success") {
+                        var StudentTable = $('#tbl tbody');
+                        $(resp).each(function (key, item) {
+                            StudentTable.append('<tr><td>' + item.data.Name
+                                + '</td><td>' + item.data.Age
+                                + '</td><td>' + item.data.Address
+                                + '</td><td>' + item.data.PhoneNumber
+                                + '</td><td>' + item.data.DOB
+                                + '</td></tr>');
+                        });
+                    }
+                },
+            })
+        })
+    })
+</script>

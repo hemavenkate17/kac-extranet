@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\HemalathaV\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\HemalathaV\\.nuget\\packages"
+    ]
+  }
+}
